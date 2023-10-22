@@ -1,54 +1,33 @@
 package jp.co.axa.apidemo.controllers;
 
+import jp.co.axa.apidemo.ApiDemoApplication;
 import jp.co.axa.apidemo.entities.Employee;
-import jp.co.axa.apidemo.services.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jp.co.axa.apidemo.modals.ApiResponse;
+import jp.co.axa.apidemo.utils.ApiConstants;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/v1")
-public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
+@RequestMapping(ApiConstants.EMPLOYEE_CONTROLLER_MAPPING)
+public interface EmployeeController {
 
-    public void setEmployeeService(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+    String EMPLOYEE_MAPPING = ApiConstants.EMPLOYEE_MAPPING;
+    String RESOURCE_MAPPING = EMPLOYEE_MAPPING+"/{employeeId}";
 
-    @GetMapping("/employees")
-    public List<Employee> getEmployees() {
-        List<Employee> employees = employeeService.retrieveEmployees();
-        return employees;
-    }
+    @GetMapping(EMPLOYEE_MAPPING)
+    public ApiResponse getEmployees();
 
-    @GetMapping("/employees/{employeeId}")
-    public Employee getEmployee(@PathVariable(name="employeeId")Long employeeId) {
-        return employeeService.getEmployee(employeeId);
-    }
+    @GetMapping(RESOURCE_MAPPING)
+    public Employee getEmployee(@PathVariable(name="employeeId")Long employeeId);
 
-    @PostMapping("/employees")
-    public void saveEmployee(Employee employee){
-        employeeService.saveEmployee(employee);
-        System.out.println("Employee Saved Successfully");
-    }
+    @PostMapping(EMPLOYEE_MAPPING)
+    public void saveEmployee(Employee employee);
 
-    @DeleteMapping("/employees/{employeeId}")
-    public void deleteEmployee(@PathVariable(name="employeeId")Long employeeId){
-        employeeService.deleteEmployee(employeeId);
-        System.out.println("Employee Deleted Successfully");
-    }
+    @DeleteMapping(RESOURCE_MAPPING)
+    public void deleteEmployee(@PathVariable(name="employeeId")Long employeeId);
 
-    @PutMapping("/employees/{employeeId}")
+    @PutMapping(RESOURCE_MAPPING)
     public void updateEmployee(@RequestBody Employee employee,
-                               @PathVariable(name="employeeId")Long employeeId){
-        Employee emp = employeeService.getEmployee(employeeId);
-        if(emp != null){
-            employeeService.updateEmployee(employee);
-        }
-
-    }
-
+                               @PathVariable(name="employeeId")Long employeeId);
 }

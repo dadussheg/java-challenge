@@ -20,6 +20,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     public List<Employee> retrieveEmployees() {
         List<Employee> employees = employeeRepository.findAll();
+
         return employees;
     }
 
