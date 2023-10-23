@@ -1,13 +1,14 @@
 package jp.co.axa.apidemo.modals;
 
-import org.immutables.value.Value;
+import lombok.Builder;
+import lombok.Getter;
 
-@Value.Immutable
-public interface ApiResponse {
+@Builder
+public class ApiResponse {
 
-    Object data();
+    private Object data;
 
-    String status();
+    private String status;
 
-    String message();
+    private String message;
 }
