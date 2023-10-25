@@ -1,19 +1,18 @@
 package jp.co.axa.apidemo.services;
 
 import jp.co.axa.apidemo.entities.Employee;
-
-import java.util.List;
+import jp.co.axa.apidemo.modals.Result;
 
 
 public interface EmployeeService {
 
-     List<Employee> retrieveEmployees();
+     Result retrieveEmployees();
 
-     Employee getEmployee(Long employeeId);
+     Result getEmployee(Long employeeId);
 
-     Employee saveEmployee(Employee employee);
+     Result saveEmployee(Employee employee);
 
-     Boolean deleteEmployee(Long employeeId);
+     Result deleteEmployee(Long employeeId);
 
-     Employee updateEmployee(Employee employee);
+     Result updateEmployee(Long employeeId,Employee employee);
 }
